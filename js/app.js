@@ -64,6 +64,10 @@ let movesNum = 0;
 // displays number of moves
 let moves = document.querySelector('.moves');
 
+// star rating (player performance)
+const stars = document.querySelector('.stars');
+const starList = stars.querySelectorAll('i.fa-star');
+
 // timer
 let gameTimer;
 
@@ -95,10 +99,10 @@ function cardFlip (event) {
 
     //check if a card was clicked
     if (event.target.classList.contains('card')) {
-
+        
         // identifies the card by its icon class name
         const cardIdentifier = card.querySelector('i').getAttribute('class').split(' ')[1];
-    
+        
         card.classList.add('open', 'show');
     
         // if the cards match
@@ -147,6 +151,19 @@ function cardFlip (event) {
 function moveCounter () {
     movesNum++;
     moves.innerHTML = movesNum;
+
+    // decrease star rating based on player performance (number of moves)
+    console.log(starList);
+    if (movesNum > 10 && movesNum <= 15) {
+        starList[2].classList.remove('fa-star');
+        starList[2].classList.add('fa-star-o');
+    } else if (movesNum > 15 && movesNum <= 20) {
+        starList[1].classList.remove('fa-star');
+        starList[1].classList.add('fa-star-o');
+    } else if (movesNum > 20) {
+        starList[0].classList.remove('fa-star');
+        starList[0].classList.add('fa-star-o');
+    } 
 }
 
 deck.addEventListener('click', function(event) {
