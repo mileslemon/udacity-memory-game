@@ -58,8 +58,11 @@ let cardIcons = [
     'fa-paper-plane-o'
 ];
 
-// move counter
-let moveCounter;
+// counts number of moves
+let movesNum = 0;
+
+// displays number of moves
+let moves = document.querySelector('.moves');
 
 // timer
 let gameTimer;
@@ -89,11 +92,54 @@ for ( let i = 0; i < 16; i++ ) {
 // flips the card on click
 function cardFlip (event) {
     const card = event.target;
-    const cardIdentifier = card.querySelector('i').getAttribute('class');
 
-    card.classList.add('open', 'show');
+    //check if a card was clicked
+    if (event.target.classList.contains('card')) {
 
-    console.log(openCards);
+        // identifies the card by its icon class name
+        const cardIdentifier = card.querySelector('i').getAttribute('class').split(' ')[1];
+    
+        card.classList.add('open', 'show');
+    
+        // if the cards match
+        if (openCards.includes(cardIdentifier)) {
+            console.log('card matches');
+    
+            const matchedCard = openCards.pop();
+            matchedCards.push(matchedCard, cardIdentifier);
+            
+            // applies matched color to card couple
+            const cardCouple = document.getElementsByClassName(cardIdentifier);
+            for ( let i = 0; i < 2; i++ ) {
+                cardCouple[i].parentElement.classList.add('match');
+            }
+            
+            openCards = [];
+        
+        // if this is the first click of match attempt
+        } else if (openCards.length == 0) {
+            openCards.push(cardIdentifier);
+    
+        // if cards don't match
+        } else if (!openCards.length == 0) {
+            console.log('card does not match');
+    
+            // perform incorrect match animation
+            const wrongCard = document.getElementsByClassName(openCards);
+    
+            // hides cards after 1 second if they don't match
+            setTimeout(function() {
+                for ( let i = 0; i < 2; i++ ) {
+                    wrongCard[i].parentElement.classList.remove('open', 'show');
+                }
+                card.classList.remove('open', 'show');
+            }, 1000);
+            
+            openCards = [];
+        }
+
+    }
+
 }
 
 deck.addEventListener('click', function(event) {
