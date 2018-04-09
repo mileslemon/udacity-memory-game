@@ -67,6 +67,8 @@ const shuffledCards = shuffle(cardIcons);
 // array of <i> tags for cards to be applied to
 const emptyDeck = document.querySelectorAll('li.card > i');
 
+const deck = document.querySelector('.deck');
+
 // builds the deck of cards using the shuffledDeck
 // loop over <i> tags appending the class to them 
 for ( let i = 0; i < 16; i++ ) {
@@ -74,3 +76,16 @@ for ( let i = 0; i < 16; i++ ) {
     const cardIcon = shuffledCards[i];
     card.classList.add(cardIcon);
 }
+
+// flips the card on click
+function cardFlip (event) {
+    const card = event.target;
+    const cardIdentifier = card.querySelector('i');
+    card.classList.add('open', 'show');
+    openCards.push(cardIdentifier);
+    console.log(openCards);
+}
+
+deck.addEventListener('click', function(event) {
+    cardFlip(event);
+});
