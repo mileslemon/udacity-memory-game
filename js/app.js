@@ -58,8 +58,17 @@ let cardIcons = [
     'fa-paper-plane-o'
 ];
 
+// move counter
+let moveCounter;
+
+// timer
+let gameTimer;
+
 // stores a list of all cards flipped by the player
 let openCards = [];
+
+// stores matched cards
+let matchedCards = [];
 
 // shuffled deck of cards
 const shuffledCards = shuffle(cardIcons);
@@ -80,9 +89,10 @@ for ( let i = 0; i < 16; i++ ) {
 // flips the card on click
 function cardFlip (event) {
     const card = event.target;
-    const cardIdentifier = card.querySelector('i');
+    const cardIdentifier = card.querySelector('i').getAttribute('class');
+
     card.classList.add('open', 'show');
-    openCards.push(cardIdentifier);
+
     console.log(openCards);
 }
 
