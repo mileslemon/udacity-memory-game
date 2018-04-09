@@ -57,3 +57,12 @@ let cardIcons = [
     'fa-paper-plane-o',
     'fa-paper-plane-o'
 ];
+
+// stores a list of all cards flipped by the player
+let openCards = [];
+
+// shuffled deck of cards
+const shuffledCards = shuffle(cardIcons);
+
+// array of <i> tags for cards to be applied to
+const emptyDeck = document.querySelectorAll('li.card > i');
