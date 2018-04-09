@@ -71,6 +71,13 @@ const starList = stars.querySelectorAll('i.fa-star');
 // timer
 let gameTimer;
 
+// boolen whether the timer has been started or not
+let isTimerActive = false;
+
+// variables to increment game timer
+let timerSeconds = 0,
+timerMinutes = 0;
+
 // stores a list of all cards flipped by the player
 let openCards = [];
 
@@ -95,6 +102,7 @@ for ( let i = 0; i < 16; i++ ) {
 
 // flips the card on click
 function cardFlip (event) {
+    startTimer();
     const card = event.target;
 
     //check if a card was clicked and wasn't already clicked
@@ -117,7 +125,7 @@ function cardFlip (event) {
             for ( let i = 0; i < 2; i++ ) {
                 cardCouple[i].parentElement.classList.add('match');
             }
-            
+
             // removes clicked class
             const clickedCards = document.querySelector('.clicked');
             clickedCards.classList.remove('clicked');
@@ -177,3 +185,26 @@ deck.addEventListener('click', function(event) {
     cardFlip(event);
 });
 
+function incrementTimer() {
+    timerSeconds++;
+
+    if(timerSeconds >= 60) {
+        timerSeconds = 0;
+        timerMinutes++;
+    }
+
+    const timerEl = document.querySelector('.timer');
+    timerEl.textContent = (timerMinutes ? (timerMinutes > 9 ? timerMinutes : "0" + timerMinutes) : "00") + ":" + (timerSeconds > 9 ? timerSeconds : "0" + timerSeconds);
+    timer();
+}
+
+function timer() {
+    gameTimer = setTimeout(incrementTimer, 1000);
+}
+
+function startTimer() {
+    if (!isTimerActive) {
+        isTimerActive = true;
+        timer();
+    }
+}
