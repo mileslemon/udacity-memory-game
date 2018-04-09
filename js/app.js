@@ -66,3 +66,11 @@ const shuffledCards = shuffle(cardIcons);
 
 // array of <i> tags for cards to be applied to
 const emptyDeck = document.querySelectorAll('li.card > i');
+
+// builds the deck of cards using the shuffledDeck
+// loop over <i> tags appending the class to them 
+for ( let i = 0; i < 16; i++ ) {
+    const card = emptyDeck[i];
+    const cardIcon = shuffledCards[i];
+    card.classList.add(cardIcon);
+}
