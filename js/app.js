@@ -36,3 +36,24 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+
+// array of card icons
+let cardIcons = [
+    'fa-diamond',
+    'fa-diamond',    
+    'fa-anchor',
+    'fa-anchor',
+    'fa-bolt',
+    'fa-bolt',
+    'fa-cube',
+    'fa-cube',
+    'fa-leaf',
+    'fa-leaf',
+    'fa-bicycle',
+    'fa-bicycle',
+    'fa-bomb',
+    'fa-bomb',
+    'fa-paper-plane-o',
+    'fa-paper-plane-o'
+];
