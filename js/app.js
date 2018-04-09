@@ -60,6 +60,9 @@ let openCards = [];
 // stores matched cards
 let matchedCards = [];
 
+// track card pairs 
+let cardPair = [];
+
 // shuffled deck of cards
 const shuffledCards = shuffle(cardIcons);
 
@@ -80,8 +83,9 @@ for ( let i = 0; i < 16; i++ ) {
 function cardFlip (event) {
     startTimer();
     const card = event.target;
-    //check if a card was clicked and wasn't already clicked
-    if (card.classList.contains('card') && !card.classList.contains('clicked')) {
+
+    // check if a card was clicked and wasn't already clicked
+    if (card.classList.contains('card') && !card.classList.contains('clicked') && !card.classList.contains('match')) {
         // identifies the card by its icon class name
         const cardIdentifier = card.querySelector('i').getAttribute('class').split(' ')[1];
         
@@ -89,45 +93,52 @@ function cardFlip (event) {
     
         // if the cards match
         if (openCards.includes(cardIdentifier)) {
-            console.log('card matches');
-            const matchedCard = openCards.pop();
-            matchedCards.push(matchedCard, cardIdentifier);
+            cardPair.push(card);
+            
             // applies matched color to card couple
-            const cardCouple = document.getElementsByClassName(cardIdentifier);
             for ( let i = 0; i < 2; i++ ) {
-                cardCouple[i].parentElement.classList.add('match');
+                cardPair[i].classList.add('match', 'wiggle');
             }
             // removes clicked class
             const clickedCards = document.querySelector('.clicked');
             clickedCards.classList.remove('clicked');
             
             openCards = [];
+            cardPair = [];        
             moveCounter();
+
         // if this is the first click of match attempt
         } else if (openCards.length == 0) {
-            card.classList.add('clicked');
+            card.classList.add('clicked', 'bounce');
+            cardPair.push(card);
             openCards.push(cardIdentifier);
+            setTimeout(function () {
+                card.classList.remove('bounce');
+            }, 500);
+
         // if cards don't match
         } else if (!openCards.length == 0) {
-            console.log('card does not match');
+            cardPair.push(card);
+            cardPair[0].classList.add('wrong', 'shake');
+            cardPair[1].classList.add('wrong', 'shake');
+
             // hides cards after 1 second if they don't match
-            const wrongCard = document.getElementsByClassName(openCards);
             setTimeout(function() {
+                const wrongCards = document.querySelectorAll('.wrong');
                 for ( let i = 0; i < 2; i++ ) {
-                    wrongCard[i].parentElement.classList.remove('open', 'show');
+                    wrongCards[i].classList.remove('open', 'show', 'wrong', 'shake');
                 }
-                card.classList.remove('open', 'show');
             }, 1000);
+
             // removes clicked class
             const clickedCards = document.querySelector('.clicked');
             clickedCards.classList.remove('clicked');
 
             openCards = [];
+            cardPair = [];
             moveCounter();
         }
-
     }
-
 }
 
 function moveCounter () {
@@ -135,14 +146,13 @@ function moveCounter () {
     moves.innerHTML = movesNum;
 
     // decrease star rating based on player performance (number of moves)
-    console.log(starList);
-    if (movesNum > 10 && movesNum <= 15) {
+    if (movesNum > 15 && movesNum <= 20) {
         starList[2].classList.remove('fa-star');
         starList[2].classList.add('fa-star-o');
-    } else if (movesNum > 15 && movesNum <= 20) {
+    } else if (movesNum > 20 && movesNum <= 25) {
         starList[1].classList.remove('fa-star');
         starList[1].classList.add('fa-star-o');
-    } else if (movesNum > 20) {
+    } else if (movesNum > 25) {
         starList[0].classList.remove('fa-star');
         starList[0].classList.add('fa-star-o');
     } 
