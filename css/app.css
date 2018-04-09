@@ -114,3 +114,89 @@ h1 {
     display: block;
     width: 60px;
 }
+
+
+/*
+ * Animations
+ */
+
+ .deck .card.shake {
+     animation-name: shake;
+     animation-duration: 1s;
+ }
+
+ @keyframes shake {
+    0%, 100% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+
+    10%, 30%, 50%, 70%, 90% {
+        -webkit-transform: translate3d(-5px, 0, 0);
+        transform: translate3d(-5px, 0, 0);
+    }
+
+    20%, 40%, 60%, 80% {
+        -webkit-transform: translate3d(5px, 0, 0);
+        transform: translate3d(5px, 0, 0);
+    }
+ }
+
+ .deck .card.wrong {
+     background-color: red;
+ }
+
+ .deck .card.bounce {
+    animation-name: bounce;
+    animation-duration: 0.5s;
+ }
+
+ @keyframes bounce {
+    0% {
+      transform:  scaleX(0.80) scaleY(0.80) ;
+    }
+    23% {
+      transform:  scaleX(1.15) scaleY(1.15) ;
+    }
+    40% {
+      transform:  scaleX(0.90) scaleY(0.90) ;
+    }
+    69% {
+      transform:  scaleX(1.05) scaleY(1.05) ;
+    }
+    100% {
+      transform:  scaleX(1.00) scaleY(1.00) ;
+    }
+  }
+
+  .deck .card.wiggle {
+      animation-name: wiggle;
+      animation-duration: 0.5s;
+  }
+
+  @keyframes wiggle {
+    0% {
+        transform:  rotate(0deg) scaleX(1.00) scaleY(1.00) ;
+    }
+    10% {
+        transform:  rotate(-3deg) scaleX(0.80) scaleY(0.80) ;
+    }
+    20% {
+        transform:  rotate(-3deg) scaleX(0.80) scaleY(0.80) ;
+    }
+    30% {
+        transform:  rotate(3deg) scaleX(1.20) scaleY(1.20) ;
+    }
+    50% {
+        transform:  rotate(-3deg) scaleX(1.20) scaleY(1.20) ;
+    }
+    65% {
+        transform:  rotate(3deg) scaleX(1.20) scaleY(1.20) ;
+    }
+    90% {
+        transform:  scaleX(1.07) scaleY(1.07) ;
+    }
+    100% {
+        transform:  rotate(0deg) scaleX(1.00) scaleY(1.00) ;
+    }
+  }
