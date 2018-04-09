@@ -115,6 +115,7 @@ function cardFlip (event) {
             }
             
             openCards = [];
+            moveCounter();
         
         // if this is the first click of match attempt
         } else if (openCards.length == 0) {
@@ -136,12 +137,19 @@ function cardFlip (event) {
             }, 1000);
             
             openCards = [];
+            moveCounter();
         }
 
     }
 
 }
 
+function moveCounter () {
+    movesNum++;
+    moves.innerHTML = movesNum;
+}
+
 deck.addEventListener('click', function(event) {
     cardFlip(event);
 });
+
