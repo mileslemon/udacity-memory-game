@@ -97,8 +97,8 @@ for ( let i = 0; i < 16; i++ ) {
 function cardFlip (event) {
     const card = event.target;
 
-    //check if a card was clicked
-    if (event.target.classList.contains('card')) {
+    //check if a card was clicked and wasn't already clicked
+    if (card.classList.contains('card') && !card.classList.contains('clicked')) {
         
         // identifies the card by its icon class name
         const cardIdentifier = card.querySelector('i').getAttribute('class').split(' ')[1];
@@ -118,21 +118,24 @@ function cardFlip (event) {
                 cardCouple[i].parentElement.classList.add('match');
             }
             
+            // removes clicked class
+            const clickedCards = document.querySelector('.clicked');
+            clickedCards.classList.remove('clicked');
+            
             openCards = [];
             moveCounter();
         
         // if this is the first click of match attempt
         } else if (openCards.length == 0) {
+            card.classList.add('clicked');
             openCards.push(cardIdentifier);
     
         // if cards don't match
         } else if (!openCards.length == 0) {
             console.log('card does not match');
-    
-            // perform incorrect match animation
-            const wrongCard = document.getElementsByClassName(openCards);
-    
+            
             // hides cards after 1 second if they don't match
+            const wrongCard = document.getElementsByClassName(openCards);
             setTimeout(function() {
                 for ( let i = 0; i < 2; i++ ) {
                     wrongCard[i].parentElement.classList.remove('open', 'show');
@@ -140,6 +143,10 @@ function cardFlip (event) {
                 card.classList.remove('open', 'show');
             }, 1000);
             
+            // removes clicked class
+            const clickedCards = document.querySelector('.clicked');
+            clickedCards.classList.remove('clicked');
+
             openCards = [];
             moveCounter();
         }
