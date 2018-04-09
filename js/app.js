@@ -1,14 +1,3 @@
-/*
- * Create a list that holds all of your cards
- */
-
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -24,19 +13,6 @@ function shuffle(array) {
 
     return array;
 }
-
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
-
 
 // array of card icons
 let cardIcons = [
@@ -104,10 +80,8 @@ for ( let i = 0; i < 16; i++ ) {
 function cardFlip (event) {
     startTimer();
     const card = event.target;
-
     //check if a card was clicked and wasn't already clicked
     if (card.classList.contains('card') && !card.classList.contains('clicked')) {
-        
         // identifies the card by its icon class name
         const cardIdentifier = card.querySelector('i').getAttribute('class').split(' ')[1];
         
@@ -116,32 +90,26 @@ function cardFlip (event) {
         // if the cards match
         if (openCards.includes(cardIdentifier)) {
             console.log('card matches');
-    
             const matchedCard = openCards.pop();
             matchedCards.push(matchedCard, cardIdentifier);
-            
             // applies matched color to card couple
             const cardCouple = document.getElementsByClassName(cardIdentifier);
             for ( let i = 0; i < 2; i++ ) {
                 cardCouple[i].parentElement.classList.add('match');
             }
-
             // removes clicked class
             const clickedCards = document.querySelector('.clicked');
             clickedCards.classList.remove('clicked');
             
             openCards = [];
             moveCounter();
-        
         // if this is the first click of match attempt
         } else if (openCards.length == 0) {
             card.classList.add('clicked');
             openCards.push(cardIdentifier);
-    
         // if cards don't match
         } else if (!openCards.length == 0) {
             console.log('card does not match');
-            
             // hides cards after 1 second if they don't match
             const wrongCard = document.getElementsByClassName(openCards);
             setTimeout(function() {
@@ -150,7 +118,6 @@ function cardFlip (event) {
                 }
                 card.classList.remove('open', 'show');
             }, 1000);
-            
             // removes clicked class
             const clickedCards = document.querySelector('.clicked');
             clickedCards.classList.remove('clicked');
@@ -187,12 +154,10 @@ deck.addEventListener('click', function(event) {
 
 function incrementTimer() {
     timerSeconds++;
-
     if(timerSeconds >= 60) {
         timerSeconds = 0;
         timerMinutes++;
     }
-
     const timerEl = document.querySelector('.timer');
     timerEl.textContent = (timerMinutes ? (timerMinutes > 9 ? timerMinutes : "0" + timerMinutes) : "00") + ":" + (timerSeconds > 9 ? timerSeconds : "0" + timerSeconds);
     timer();
