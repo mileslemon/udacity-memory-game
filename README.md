@@ -1,20 +1,10 @@
-# Memory Game Project
+<img src="https://raw.githubusercontent.com/mileslemon/Udacity-Pixel-Maker/master/img/memory_game_banner.jpg" alt="banner image">
 
-## Table of Contents
+# Udacity Project: Memory Game
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+The final project for the second section of the Udacity Front End Web Developer Nanodegree. The outcome of this project is a simple 4x4 memory matching game. We were given initial start code which including a basic HTML template and some basic styles. We were tasked with implementing the functionality for the game with vanilla JavaScript and to add our own styles.
 
-## Instructions
+---
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+###### You can play the project <a href="https://mileslemon.github.io/udacity-memory-game/">here</a>!
 
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
