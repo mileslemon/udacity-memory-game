@@ -236,7 +236,7 @@ animation-duration: 0.5s;
     0% {
         transform:  scaleX(0.85) scaleY(0.85) ;
     }
-    
+
     23% {
         transform:  scaleX(1.10) scaleY(1.10) ;
     }
@@ -393,7 +393,12 @@ animation-duration: 0.5s;
         margin-bottom: 15px;
         height: auto;
     }
-}
+    
+    .deck .card i {
+        position: absolute;
+        top: 0;
+        margin-top: calc(50% - 16px);
+    }
 
 @media only screen and (max-width: 450px) {
     .deck .card {
