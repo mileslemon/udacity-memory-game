@@ -204,9 +204,6 @@ function winCondition () {
         // stop timer
         clearTimeout(gameTimer);
 
-        // stores time
-        console.log(time);
-
         // modal
         const modalHeading = document.querySelector('.modalHeading');
         const modalStars = document.querySelector('.modalStars');
@@ -236,6 +233,9 @@ function winCondition () {
         // display player moves and time
         modalMoves.textContent = moves;
         modalTime.textContent = time;
+
+        // play again button
+        // modalButton.addEventListener('click', location.reload());
 
         setTimeout(() => {
             modal.style.display = 'block';
@@ -281,6 +281,16 @@ function winCondition () {
             }, 2250)
             
         }, 2000);
-
     }
 }
+
+function restartGame () {
+    document.querySelector('.modalButton').addEventListener('click', () => {
+        location.reload();
+    });
+    document.querySelector('.restart').addEventListener('click', () => {
+        location.reload();
+    });
+}
+
+restartGame();
