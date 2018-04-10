@@ -44,6 +44,9 @@ let moves = document.querySelector('.moves');
 const stars = document.querySelector('.stars');
 const starList = stars.querySelectorAll('i.fa-star');
 
+// tracks player score for modal
+let playerScore = 3;
+
 // timer
 let gameTimer;
 
@@ -58,7 +61,7 @@ timerMinutes = 0;
 let openCards = [];
 
 // stores matched cards
-let matchedCards = [];
+let matchedCards = 0;
 
 // track card pairs 
 let cardPair = [];
@@ -103,16 +106,18 @@ function cardFlip (event) {
             const clickedCards = document.querySelector('.clicked');
             clickedCards.classList.remove('clicked');
             
+            matchedCards++;
             openCards = [];
             cardPair = [];        
             moveCounter();
+            winCondition();
 
         // if this is the first click of match attempt
         } else if (openCards.length == 0) {
             card.classList.add('clicked', 'bounce');
             cardPair.push(card);
             openCards.push(cardIdentifier);
-            setTimeout(function () {
+            setTimeout(() => {
                 card.classList.remove('bounce');
             }, 500);
 
@@ -123,7 +128,7 @@ function cardFlip (event) {
             cardPair[1].classList.add('wrong', 'shake');
 
             // hides cards after 1 second if they don't match
-            setTimeout(function() {
+            setTimeout(() => {
                 const wrongCards = document.querySelectorAll('.wrong');
                 for ( let i = 0; i < 2; i++ ) {
                     wrongCards[i].classList.remove('open', 'show', 'wrong', 'shake');
@@ -147,18 +152,18 @@ function moveCounter () {
 
     // decrease star rating based on player performance (number of moves)
     if (movesNum > 15 && movesNum <= 20) {
-        starList[2].classList.remove('fa-star');
-        starList[2].classList.add('fa-star-o');
+        starList[2].className = 'fa fa-star-o'
+        playerScore = 2;
     } else if (movesNum > 20 && movesNum <= 25) {
-        starList[1].classList.remove('fa-star');
-        starList[1].classList.add('fa-star-o');
+        starList[1].className = 'fa fa-star-o'
+        playerScore = 1;
     } else if (movesNum > 25) {
-        starList[0].classList.remove('fa-star');
-        starList[0].classList.add('fa-star-o');
+        starList[0].className = 'fa fa-star-o'
+        playerScore = 0;
     } 
 }
 
-deck.addEventListener('click', function(event) {
+deck.addEventListener('click', (event) => {
     cardFlip(event);
 });
 
@@ -181,5 +186,101 @@ function startTimer() {
     if (!isTimerActive) {
         isTimerActive = true;
         timer();
+    }
+}
+
+function winCondition () {
+    if (matchedCards === 8) {
+        const modal = document.querySelector('.modal');
+        const time = document.querySelector('.timer').textContent;
+        const moves = document.querySelector('.moves').textContent;
+        const cards = document.querySelectorAll('.card');
+        
+        // add win animation to all cards
+        for (let i = 0; i < 16; i++) {
+            cards[i].classList.add('winWiggle');
+        }
+        
+        // stop timer
+        clearTimeout(gameTimer);
+
+        // stores time
+        console.log(time);
+
+        // modal
+        const modalHeading = document.querySelector('.modalHeading');
+        const modalStars = document.querySelector('.modalStars');
+        const modalStarsList = modalStars.querySelectorAll('i.fa-star-o');
+        const modalText = document.querySelector('.modalWindow > p');
+        const modalMoves = document.querySelector('.modalMoves');
+        const modalTime = document.querySelector('.modalTime');
+        const modalButton = document.querySelector('.modalButton')
+
+
+        // set modal heading based on playerScore
+        switch (playerScore) {
+            case 3:
+                modalHeading.textContent = 'Perfect Score!'
+                break;
+            case 2:
+                modalHeading.textContent = 'Excellent Score!'
+                break;
+            case 1:
+                modalHeading.textContent = 'Good Job!'
+                break;
+            case 0:
+                modalHeading.textContent = 'Nice try!'
+                break;
+        }
+
+        // display player moves and time
+        modalMoves.textContent = moves;
+        modalTime.textContent = time;
+
+        setTimeout(() => {
+            modal.style.display = 'block';
+            modal.classList.add('fadein-down');
+            
+            // heading
+            setTimeout(() => {
+                modalHeading.style.display = 'block';
+                modalHeading.classList.add('fadein-down');
+            }, 500);
+
+            // stars score
+            setTimeout(() => {
+                let i = 0;
+
+                modalStars.style.display = 'block';
+                modalStars.classList.add('fadein-down');
+
+                function displayScore () {
+                    if (playerScore > 0) {
+                        setTimeout(() => {
+                            modalStarsList[i].className = 'fa fa-star pop';
+                            i++;
+                            if (i < playerScore) {
+                                displayScore();
+                            }
+                        }, 250);
+                    }
+                }
+                setTimeout(displayScore, 700);
+            }, 800);
+
+            // modal text 
+            setTimeout(() => {
+                modalText.style.display = 'block';
+                modalText.classList.add('fadein')
+            }, 1750)
+            
+            // play again button
+            setTimeout(() => {
+                modalButton.style.display = 'block';
+                modalButton.classList.add('fadein')
+            }, 2250)
+            
+        }, 2000);
+
     }
 }
