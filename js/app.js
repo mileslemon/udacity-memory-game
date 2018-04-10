@@ -34,7 +34,7 @@ let cardIcons = [
     'fa-paper-plane-o'
 ];
 
-// counts number of moves
+// tracks number of player moves
 let movesNum = 0;
 
 // displays number of moves
@@ -50,7 +50,7 @@ let playerScore = 3;
 // timer
 let gameTimer;
 
-// boolen whether the timer has been started or not
+// boolean whether the timer has been started or not
 let isTimerActive = false;
 
 // variables to increment game timer
@@ -63,7 +63,7 @@ let openCards = [];
 // stores matched cards
 let matchedCards = 0;
 
-// track card pairs 
+// tracks card pairs for comparison
 let cardPair = [];
 
 // shuffled deck of cards
@@ -167,6 +167,7 @@ deck.addEventListener('click', (event) => {
     cardFlip(event);
 });
 
+// stopwatch function based on Daniel Hug's (https://jsfiddle.net/Daniel_Hug/pvk6p/)
 function incrementTimer() {
     timerSeconds++;
     if(timerSeconds >= 60) {
