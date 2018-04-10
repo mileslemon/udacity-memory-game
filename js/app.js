@@ -284,6 +284,7 @@ function winCondition () {
     }
 }
 
+// game restart functionality
 function restartGame () {
     document.querySelector('.modalButton').addEventListener('click', () => {
         location.reload();
